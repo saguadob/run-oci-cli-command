@@ -25,7 +25,7 @@ jobs:
         with:
           command: 'iam region list --raw-output'
           query: "data[0].key"
-          sensitive: false
+          silent: false
 
       - name: Test1
         run: echo ${{ steps.region.outputs.raw_output }} 
