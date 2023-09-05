@@ -21,17 +21,14 @@ jobs:
 
       - name: Retrieve the OCID of a named compartment in tenancy
         uses: ./
-        id: find-compartment-id
+        id: region
         with:
-          command: 'iam compartment list --compartment-id-in-subtree=true'
-          query: "data[?name=='${{ secrets.OCI_COMPARTMENT_NAME }}'].id"
+          command: 'iam region list --raw-output'
+          query: "data[0].key"
+          sensitive: false
 
-      - name: Find instances in the named compartment
-        uses: ./
-        id: find-instances
-        with:
-          command: 'compute instance list --compartment-id ${{ steps.find-compartment-id.outputs.raw_output }}'
-          query: 'data[*].{name: \"display-name\", shape: shape}'
+      - name: Test1
+        run: echo ${{ steps.region.outputs.raw_output }} 
 
-      - name: List the found instances
-        run: echo ${{ steps.find-instances.outputs.output }} | jq .
+      - name: Test2
+        run: echo ${{ steps.region.outputs.output }} 
