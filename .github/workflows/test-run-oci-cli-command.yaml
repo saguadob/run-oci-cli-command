@@ -24,7 +24,7 @@ jobs:
         id: region
         with:
           command: 'iam region list --raw-output'
-          query: "data[0].key"
+          query: "data[0].name"
           silent: false
 
       - name: Test1
