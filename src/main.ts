@@ -45,12 +45,14 @@ async function runOciCliCommand(): Promise<void> {
 
   const cliCommand = `${cliBin} ${jmesPath} ${cliArgs}`;
   if (silent) core.setSecret(cliCommand);
-
+  core.info('Flag 0');
   const cliResult = await exec.getExecOutput(cliCommand, [], {silent: silent});
+  core.info('Flag 1');
   core.debug('Flag 1');
   if (cliResult) {
     const stdout = cliResult.stdout ? JSON.parse(cliResult.stdout) : {};
     const stderr = cliResult.stderr ? JSON.stringify(cliResult.stderr) : '';
+    core.info('Flag 2');
     core.debug('Flag 2');
     if (cliResult.exitCode == 0) {
       const output = JSON.stringify(JSON.stringify(stdout));
