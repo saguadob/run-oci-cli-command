@@ -23,7 +23,7 @@ jobs:
         uses: ./
         id: region
         with:
-          command: 'iam region list --raw-output'
+          command: 'iam region list'
           query: "data[0].name"
           silent: false
 
