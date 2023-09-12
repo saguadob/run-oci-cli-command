@@ -4210,16 +4210,24 @@ function runOciCliCommand() {
         const cliCommand = `${cliBin} ${jmesPath} ${cliArgs}`;
         if (silent)
             _actions_core__WEBPACK_IMPORTED_MODULE_0__.setSecret(cliCommand);
+        _actions_core__WEBPACK_IMPORTED_MODULE_0__.info('Flag 0');
+        _actions_core__WEBPACK_IMPORTED_MODULE_0__.warning('Flag 0');
         const cliResult = yield _actions_exec__WEBPACK_IMPORTED_MODULE_2__.getExecOutput(cliCommand, [], { silent: silent });
+        _actions_core__WEBPACK_IMPORTED_MODULE_0__.info('Flag 1');
+        _actions_core__WEBPACK_IMPORTED_MODULE_0__.debug('Flag 1');
         if (cliResult) {
             const stdout = cliResult.stdout ? JSON.parse(cliResult.stdout) : {};
             const stderr = cliResult.stderr ? JSON.stringify(cliResult.stderr) : '';
+            _actions_core__WEBPACK_IMPORTED_MODULE_0__.info('Flag 2');
+            _actions_core__WEBPACK_IMPORTED_MODULE_0__.debug('Flag 2');
             if (cliResult.exitCode == 0) {
                 const output = JSON.stringify(JSON.stringify(stdout));
+                _actions_core__WEBPACK_IMPORTED_MODULE_0__.debug('Flag 3');
                 if (silent && output)
                     _actions_core__WEBPACK_IMPORTED_MODULE_0__.setSecret(output);
                 _actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput('output', output);
                 if (Object.keys(stdout).length == 1) {
+                    _actions_core__WEBPACK_IMPORTED_MODULE_0__.debug('Flag 4');
                     const raw_output = stdout[0];
                     if (silent && raw_output)
                         _actions_core__WEBPACK_IMPORTED_MODULE_0__.setSecret(raw_output);
