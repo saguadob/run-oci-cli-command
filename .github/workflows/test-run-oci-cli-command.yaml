@@ -23,12 +23,12 @@ jobs:
         uses: ./
         id: region
         with:
-          command: 'iam region list --raw-output'
+          command: 'iam region list'
           query: "data[0].name"
           silent: false
 
       - name: Test1
-        run: echo ${{ steps.region.outputs.raw_output }} 
+        run: echo "[ ${{ steps.region.outputs.raw_output }} ]"
 
       - name: Test2
-        run: echo ${{ steps.region.outputs.output }} 
+        run: echo "[ ${{ steps.region.outputs.output }} ]"
