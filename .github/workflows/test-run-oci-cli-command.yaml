@@ -20,7 +20,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Retrieve the OCID of a named compartment in tenancy
-        uses: ./
+        uses: ./@test
         id: region
         with:
           command: 'iam region list'
