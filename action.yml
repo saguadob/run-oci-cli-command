@@ -35,4 +35,4 @@ branding:
   color: 'red'
 runs:
   using: 'node16'
-  main: 'src/index.ts'
+  main: 'src/main.ts'
