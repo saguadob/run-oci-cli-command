@@ -46,6 +46,7 @@ async function runOciCliCommand(): Promise<void> {
   const cliCommand = `${cliBin} ${jmesPath} ${cliArgs}`;
   if (silent) core.setSecret(cliCommand);
   core.info('Flag 0');
+  core.warning('Flag 0');
   const cliResult = await exec.getExecOutput(cliCommand, [], {silent: silent});
   core.info('Flag 1');
   core.debug('Flag 1');
