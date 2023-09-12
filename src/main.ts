@@ -33,17 +33,26 @@ async function runOciCliCommand(): Promise<void> {
   }
 
   const cliBin = await io.which('oci', true);
-  const cliArgs = core
+  var cliArgs = core
     .getInput('command', {required: true})
     .replace(/^(oci\s)/, '')
     .trim();
   const jmesPath = core.getInput('query')
     ? `--query "${core.getInput('query').trim()}"`
     : '';
+  const israwOuput = core.getBooleanInput('raw_output', {required: false})
+    ? '--raw-output'
+    : '';
+  
+  if (israwOuput){
+    cliArgs = cliArgs.replace(/^(--raw-output\s)/, '')
+      .trim();
+  }
+
   core.info('Executing Oracle Cloud Infrastructure CLI command');
   const silent = core.getBooleanInput('silent', {required: false});
 
-  const cliCommand = `${cliBin} ${jmesPath} ${cliArgs}`;
+  const cliCommand = `${cliBin} ${jmesPath} ${cliArgs} ${israwOuput}`;
   if (silent) core.setSecret(cliCommand);
 
   const cliResult = await exec.getExecOutput(cliCommand, [], {silent: silent});
@@ -53,6 +62,7 @@ async function runOciCliCommand(): Promise<void> {
     const stderr = cliResult.stderr ? JSON.stringify(cliResult.stderr) : '';
 
     if (cliResult.exitCode == 0) {
+
       const output = JSON.stringify(JSON.stringify(stdout));
 
       if (silent && output) core.setSecret(output);
