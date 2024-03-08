@@ -4201,6 +4201,7 @@ function runOciCliCommand() {
         const cliBin = yield _actions_io__WEBPACK_IMPORTED_MODULE_1__.which('oci', true);
         const cliArgs = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('command', { required: true })
             .replace(/^(oci\s)/, '')
+            .replace('--raw-output', '')
             .trim();
         const jmesPath = _actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('query')
             ? `--query "${_actions_core__WEBPACK_IMPORTED_MODULE_0__.getInput('query').trim()}"`
@@ -4227,10 +4228,17 @@ function runOciCliCommand() {
                 if (silent && output)
                     _actions_core__WEBPACK_IMPORTED_MODULE_0__.setSecret(output);
                 _actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput('output', output);
-                if (Object.keys(stdout).length == 1) {
-                    _actions_core__WEBPACK_IMPORTED_MODULE_0__.info('Flag 4 - setting raw output');
+                let raw_output = null;
+                if (typeof stdout == 'string') {
+                    _actions_core__WEBPACK_IMPORTED_MODULE_0__.debug("cli output is a raw string");
+                    raw_output = stdout;
+                }
+                else if (Object.keys(stdout).length == 1) {
+                    _actions_core__WEBPACK_IMPORTED_MODULE_0__.debug("cli output is an array of string with single Element");
                     const raw_output = stdout[0];
-                    if (silent && raw_output)
+                }
+                if (raw_output) {
+                    if (silent)
                         _actions_core__WEBPACK_IMPORTED_MODULE_0__.setSecret(raw_output);
                     _actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput('raw_output', raw_output);
                 }
