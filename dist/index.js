@@ -4222,12 +4222,13 @@ function runOciCliCommand() {
             _actions_core__WEBPACK_IMPORTED_MODULE_0__.debug('Flag 2');
             if (cliResult.exitCode == 0) {
                 const output = JSON.stringify(JSON.stringify(stdout));
-                _actions_core__WEBPACK_IMPORTED_MODULE_0__.debug('Flag 3');
+                _actions_core__WEBPACK_IMPORTED_MODULE_0__.info(output);
+                _actions_core__WEBPACK_IMPORTED_MODULE_0__.info('Flag 3');
                 if (silent && output)
                     _actions_core__WEBPACK_IMPORTED_MODULE_0__.setSecret(output);
                 _actions_core__WEBPACK_IMPORTED_MODULE_0__.setOutput('output', output);
                 if (Object.keys(stdout).length == 1) {
-                    _actions_core__WEBPACK_IMPORTED_MODULE_0__.debug('Flag 4');
+                    _actions_core__WEBPACK_IMPORTED_MODULE_0__.info('Flag 4 - setting raw output');
                     const raw_output = stdout[0];
                     if (silent && raw_output)
                         _actions_core__WEBPACK_IMPORTED_MODULE_0__.setSecret(raw_output);
